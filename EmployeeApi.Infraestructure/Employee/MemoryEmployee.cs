@@ -25,4 +25,9 @@ public class MemoryEmployee : IEmployee
         
         return Task.FromResult(Employees);
     }
+
+    public Task<Employee> GetEmployeesByUPNAsync(string upnFilter)
+    {
+        throw new NotImplementedException();
+    }
 }
