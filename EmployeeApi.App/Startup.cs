@@ -1,6 +1,8 @@
 using System.Text.Json.Serialization;
 using EmpleadosSharepoint;
 using EmpleadosSharepoint.Options;
+using EmployeeApi.Infraestructure.Authenticate;
+using Microsoft.AspNetCore.Authentication;
 
 namespace WebApplication1;
 
@@ -20,7 +22,11 @@ public class Startup
         services.Configure<SharepointOptions>(Configuration.GetSection("SharePoint"));
         services.AddSingleton<IEmployee,SharePointEmployee>();
 
-       
+        services.AddSingleton<IUser, UserService>();
+        services.AddAuthentication("BasicAuthentication").
+            AddScheme<AuthenticationSchemeOptions, BasicAuthHandler>
+            ("BasicAuthentication", null);
+
 
     }
 
@@ -29,6 +35,8 @@ public class Startup
         
         app.UseHttpsRedirection();
         app.UseRouting();
+        app.UseAuthentication();
+        app.UseAuthorization();
         app.UseEndpoints(builder =>
         {
             builder.MapControllers();

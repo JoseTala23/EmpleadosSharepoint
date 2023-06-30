@@ -20,6 +20,8 @@ var app = builder.Build();
 
 app.UseCors("corsapp");
 
+
+
 startup.Configure(app, builder.Environment, app.Services);
 
 app.Run();

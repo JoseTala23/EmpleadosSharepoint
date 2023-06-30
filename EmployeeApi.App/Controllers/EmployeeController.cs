@@ -1,5 +1,6 @@
 ﻿using System.Text.Json;
 using EmpleadosSharepoint;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebApplication1.Controllers;
@@ -17,6 +18,7 @@ public class EmployeeController:Controller
     
     [Route("employee/getAll")]
     [HttpGet]
+    [Authorize]
     public Task<IActionResult> EmployeeGetAll()
     {
         var ok = _employeeDB.GetEmployeesAsync();
@@ -27,6 +29,7 @@ public class EmployeeController:Controller
 
     [Route("employee/getAllByUPN/{upnEmployee}")]
     [HttpGet]
+    [Authorize]
     public Task<IActionResult> GetEmployeeByUPN([FromRoute] string upnEmployee)
     {
         var ok = _employeeDB.GetEmployeesByUPNAsync(upnEmployee);
